@@ -1,3 +1,4 @@
+import csstype.AutoLength
 import kotlinx.browser.document
 import kotlinx.browser.window
 import org.w3c.dom.CanvasRenderingContext2D
@@ -27,6 +28,9 @@ fun main() {
 
 fun render() {
     drawCloud(7, 5)
+    drawFloor()
+    drawBush(12,14)
+    drawHill(2,0)
 }
 
 const val CELL_SIZE = 16.0
@@ -44,12 +48,44 @@ fun drawSprite(sprite: Sprite, x: Double, y: Double) {
     )
 }
 
+
+fun drawFloor(){
+    for(j in -2..-1){
+        for(i in 0 .. 15){
+            drawSprite(floorSprite, i, j)
+        }
+    }
+}
 fun drawSprite(sprite: Sprite, i:Int, j:Int){
     drawSprite(sprite, i.toDouble(), j.toDouble())
 }
 
 fun drawCloud(i: Int, j: Int) {
     drawSprite(cloudSprite, i, j)
+}
+
+
+val bushSprites = listOf(
+    Sprite(TILES_IMAGE, si = 11, sj = 9),
+    Sprite(TILES_IMAGE, si = 12, sj = 9),
+    Sprite(TILES_IMAGE, si = 13, sj = 9)
+)
+fun drawBush(i:Int, length: Int){
+    drawSprite(bushSprites[0], i=11, j = 0 )
+    for(n in i..length){
+        drawSprite(bushSprites[1], i=n, j = 0)
+    }
+    drawSprite(bushSprites[2],i=length+1,j=0)
+}
+
+
+fun drawHill(i: Int, height: Int) {
+    for(n in 0 until 5) {
+        //val size = 2 // calculate section size
+        // drawHillSection(i, j, size)
+        drawSprite(hillSprites[n], i = i + height, j = height) // top
+    }
+
 }
 
 
