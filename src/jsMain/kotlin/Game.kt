@@ -30,7 +30,8 @@ fun render() {
     drawCloud(7, 5)
     drawFloor()
     drawBush(12,14)
-    drawHill(2,0)
+    drawHill(0,0,3)
+    drawHill(1,1,1)
 }
 
 const val CELL_SIZE = 16.0
@@ -78,14 +79,36 @@ fun drawBush(i:Int, length: Int){
     drawSprite(bushSprites[2],i=length+1,j=0)
 }
 
+val hillSprites = listOf(
+    Sprite(TILES_IMAGE, si = 8, sj = 10),
+    Sprite(TILES_IMAGE, si = 9, sj = 10),
+    Sprite(TILES_IMAGE, si = 10, sj = 10),
+    Sprite(TILES_IMAGE, si = 8, sj = 11),
+    Sprite(TILES_IMAGE, si = 9, sj = 11),
+    Sprite(TILES_IMAGE, si = 10, sj = 11),
+)
 
-fun drawHill(i: Int, height: Int) {
-    for(n in 0 until 5) {
-        //val size = 2 // calculate section size
-        // drawHillSection(i, j, size)
-        drawSprite(hillSprites[n], i = i + height, j = height) // top
+fun drawHill(i: Int, height: Int, size:Int) {
+
+    for(w in 0..size-1){
+        drawSprite(hillSprites[0], i = i, j = height)
+        for(xx in 1..size){
+            drawSprite(hillSprites[4], i = i + xx, j = height)
+        }
+        drawSprite(hillSprites[2], i = i + size+1, j = height)
+
+
     }
 
+    drawSprite(hillSprites[1], i = i + size-1, j = height+2)
+
+    /*drawSprite(hillSprites[0], i = i, j = height) // left bottom
+    for(q in 1..size){
+        drawSprite(hillSprites[4], i = i + q, j = height) // middle bottom
+    }
+    drawSprite(hillSprites[2], i = i + size+1, j = height) // right bottom
+        */
+    //drawSprite(hillSprites[], i = i + 2, j = height) // right bottom
 }
 
 
